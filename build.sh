@@ -2,10 +2,8 @@
 
 cleanup() {
 	echo "cleanup"
-	if [ -f ".Dockerfile" ]; then
-		rm -f Dockerfile
-		cp .Dockerfile Dockerfile
-	fi
+	cp -f .Dockerfile Dockerfile
+	rm -f .Dockerfile
 	rm -rf kk-job-web
 }
 
@@ -16,7 +14,6 @@ TAG=`date +%Y%m%d%H%M%S`
 ./compressor.sh
 
 cp Dockerfile .Dockerfile
-vi -c :%s/{TAG}/$TAG/g -c :wq Dockerfile
 
 #kk-job
 git clone https://github.com/kkserver/kk-job-web.git
