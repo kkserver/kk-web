@@ -6,10 +6,31 @@ RUN mkdir /lib/lua/conf
 
 VOLUME /lib/lua/conf
 
-RUN echo "TAG:{TAG}" > /VERSION.md
+COPY ./static/kk /static/kk
+COPY ./static/ui /static/ui
+
+RUN echo "TAG:20161011173656" > /VERSION.md
 
 #kk-job
 COPY ./kk-job-web/lib/lua/job /lib/lua/job
 COPY ./kk-job-web/@app/job /@app/job
-COPY ./static/kk /static/kk
 
+#kk-job
+COPY ./kk-job-web/lib/lua/job /lib/lua/job
+COPY ./kk-job-web/@app/job /@app/job
+
+#kk-job
+COPY ./kk-job-web/lib/lua/job /lib/lua/job
+COPY ./kk-job-web/@app/job /@app/job
+
+#kk-job
+COPY ./kk-job-web/lib/lua/job /lib/lua/job
+COPY ./kk-job-web/@app/job /@app/job
+
+#kk-job
+COPY ./kk-job-web/lib/lua/job /lib/lua/job
+COPY ./kk-job-web/@app/job /@app/job
+
+#kk-job
+COPY ./kk-job-web/lib/lua/job /lib/lua/job
+COPY ./kk-job-web/@app/job /@app/job
