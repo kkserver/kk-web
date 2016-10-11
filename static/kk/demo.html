@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="kk.css" />
+<script src="http://img6.didistatic.com/static/tms/cdn/z/jquery/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="kk.js"></script>
+
+</head>
+<body>
+	
+	<div id="kk-view">
+		<label>{{items.0.title}}:{{items.0.value}}</label>
+		<input type="text" kk-key="value" />
+		<ul>
+			<li kk-each="items" class="kk-view">
+				<label>{{title}}</label>
+				<input type="text" kk-key="value" />
+			</li>
+		</ul>
+	</div>
+	
+	<script type="text/javascript">
+	$(function(){
+		view = kk.view(document.getElementById('kk-view'));
+		view.set("title","ok");
+		view.set("items",[{title:"1"},{title:"2"}]);
+	});
+	</script>
+	
+</body>
+</html>

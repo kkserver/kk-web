@@ -2,6 +2,10 @@
 
 TAG=`date +%Y%m%d%H%M%S`
 
+#static compressor
+
+./compressor.sh
+
 #kk-job
 git clone https://github.com/kkserver/kk-job-web.git
 cd kk-job-web

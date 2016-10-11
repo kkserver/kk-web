@@ -11,4 +11,5 @@ RUN echo "TAG:{TAG}" > /VERSION.md
 #kk-job
 COPY ./kk-job-web/lib/lua/job /lib/lua/job
 COPY ./kk-job-web/@app/job /@app/job
+COPY ./static/kk /static/kk
 
