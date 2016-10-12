@@ -182,17 +182,28 @@ kk = {};
 		return v + '';
 	};
 	
-	var elementValue = function(element,v) {
-		var fn = element.getAttribute("kk-fn");
-		if(fn != null) {
+	var elementValue = function(element,object,exec) {
+
+		var vs = exec.split(",");
+
+		var key = vs[0];
+		var v = kk.get(object,key);
+
+		if(vs.length > 1) {
+
+			var fn = vs[1];
+
 			try {
 				fn = eval(fn);
 			}
-			catch(e){};
+			catch(e){}
+
 			if(typeof fn == 'function') {
-				v = fn.call(this.element,v);
+				v = fn.apply(element,[v].concat(vs.slice(2)))
 			}
+
 		}
+
 		return v;
 	};
 	
@@ -218,8 +229,10 @@ kk = {};
 		
 		if(this.element.nodeType == 3) {
 			
-			this.element.textContent = this.text.replace(/\{\{([a-zA-Z0-9_\.]*?)\}\}/g,function(match,key){
-				var v = kk.get(object,key);
+			var element = this.element;
+
+			this.element.textContent = this.text.replace(/\{\{([^\{\}]*?)\}\}/g,function(match,key){
+				var v = elementValue(element,object,key)
 				return stringValue(v);
 			});
 			
@@ -230,8 +243,7 @@ kk = {};
 			
 			if(typeof key == 'string') {
 				
-				var v = kk.get(object,key);
-				v = elementValue(this.element,v);
+				var v = elementValue(this.element,object,key);
 				var vs;
 				
 				if(v instanceof Array) {
@@ -288,30 +300,22 @@ kk = {};
 				
 			}
 			else {
-				
+
 				key = this.element.getAttribute("kk-key");
 
 				if(typeof key == 'string') {
-					var v = kk.get(object,key);
-					v = elementValue(this.element,v);
-					if(this.element.value === undefined){
-						this.element.textContent = stringValue(v);
-					}
-					else {
-						this.element.value = stringValue(v);
-					}
-				}
 
-				key = this.element.getAttribute("kk-if");
-
-				if(typeof key == 'string') {
-					var v = kk.get(object,key);
-					v = elementValue(this.element,v);
-					if(v) {
-						this.element.style.display = 'inherit';
-					} else {
-						this.element.style.display = 'none';
+					var v = elementValue(this.element,object,key);
+					
+					if(v !== undefined) {
+						if(this.element.value === undefined){
+							this.element.textContent = stringValue(v);
+						}
+						else {
+							this.element.value = stringValue(v);
+						}
 					}
+
 				}
 
 			}
@@ -429,20 +433,14 @@ kk = {};
 			var v;
 			var me = this;
 			
-			element.textContent.replace(/\{\{([a-zA-Z0-9\._]*?)\}\}/g
+			element.textContent.replace(/\{\{([^\{\}]*?)\}\}/g
 					,function(match,key){
-				
-				var i = key.indexOf(",");
-				
-				if(i >=0){
-					key = key.substr(0,i);
-				}
 				
 				if(v === undefined) {
 					v = (new Bind()).init(element);
 				}
 				
-				me.bind(key,v);
+				me.bind(key.split(",")[0],v);
 			});
 			
 		}
@@ -451,22 +449,16 @@ kk = {};
 			var key = element.getAttribute("kk-each");
 			
 			if(typeof key == 'string') {
-				this.bind(key,(new Bind()).init(element));
+				this.bind(key.split(",")[0],(new Bind()).init(element));
 			}
 			else {
 				
 				key = element.getAttribute("kk-key");
 				
 				if(typeof key == 'string') {
-					this.bind(key,(new Bind()).init(element));
+					this.bind(key.split(",")[0],(new Bind()).init(element));
 				}
 
-				key = element.getAttribute("kk-if");
-				
-				if(typeof key == 'string') {
-					this.bind(key,(new Bind()).init(element));
-				}
-				
 				var p = element.firstChild;
 				
 				while(p) {
@@ -550,5 +542,33 @@ kk = {};
 		return (new kk.View()).init(element);
 	};
 	
+	kk.view.visible = function(value) {
+
+		for(var i=1;i < arguments.length;i++) {
+
+			if(value == arguments[i]) {
+				this.style.display = undefined;
+				return;
+			}
+		}
+
+		this.style.display = 'none';
+
+	};
+
+	kk.view.hidden = function(value) {
+
+		for(var i=1;i < arguments.length;i++) {
+
+			if(value == arguments[i]) {
+				this.style.display = 'none';
+				return;
+			}
+		}
+
+		this.style.display = undefined;
+		
+	};
+
 })(kk);
 
