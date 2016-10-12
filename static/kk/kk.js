@@ -288,7 +288,9 @@ kk = {};
 				
 			}
 			else {
+				
 				key = this.element.getAttribute("kk-key");
+
 				if(typeof key == 'string') {
 					var v = kk.get(object,key);
 					v = elementValue(this.element,v);
@@ -299,6 +301,19 @@ kk = {};
 						this.element.value = stringValue(v);
 					}
 				}
+
+				key = this.element.getAttribute("kk-if");
+
+				if(typeof key == 'string') {
+					var v = kk.get(object,key);
+					v = elementValue(this.element,v);
+					if(v) {
+						this.element.style.display = 'inherit';
+					} else {
+						this.element.style.display = 'none';
+					}
+				}
+
 			}
 			
 		}
@@ -441,6 +456,13 @@ kk = {};
 			else {
 				
 				key = element.getAttribute("kk-key");
+				
+				if(typeof key == 'string') {
+					this.bind(key,(new Bind()).init(element));
+				}
+
+				key = element.getAttribute("kk-if");
+				
 				if(typeof key == 'string') {
 					this.bind(key,(new Bind()).init(element));
 				}

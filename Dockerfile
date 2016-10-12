@@ -8,4 +8,6 @@ VOLUME /lib/lua/conf
 
 COPY ./static/kk /static/kk
 COPY ./static/ui /static/ui
-COPY ./@app/index.html /@app/index.html
+COPY ./static/lib /static/lib
+COPY ./@app/ui /@app/ui
+

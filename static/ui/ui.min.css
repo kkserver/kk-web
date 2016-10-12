@@ -1,1 +1,160 @@
-.ui-body{padding:0;margin:0}
+
+
+.ui-body {
+	padding: 0px;
+	margin: 0px;
+}
+
+
+
+
+.ui-icon {
+	
+}
+
+
+
+
+
+
+.ui-button {
+	text-decoration: none;
+	font-style: normal;
+}
+
+.ui-button:hover {
+
+}
+
+
+
+.ui-navbar {
+	height: 49px;
+	background-color: #f6f6f6;
+	border-bottom: solid 1px #e5e5e5;
+	position: relative;
+}
+
+.ui-navbar .ui-titlebar {
+	position: absolute;
+	width: 100%;
+	vertical-align: middle;
+	text-align: center;
+	color: #333;
+	font-size: 20px;
+	height: 49px;
+	line-height: 49px;
+}
+
+.ui-navbar .ui-leftbar {
+	position: absolute;
+	vertical-align: middle;
+	color: #333;
+	height: 49px;
+	line-height: 49px;
+	padding-left: 6px;
+	font-size: 20px;
+}
+
+.ui-navbar .ui-rightbar {
+	position: absolute;
+	vertical-align: middle;
+	color: #333;
+	height: 49px;
+	line-height: 49px;
+	left: auto;
+	right: 0px;
+	padding-right: 6px;
+	font-size: 20px;
+}
+
+.ui-navbar .ui-button {
+	color: #28afec;
+	font-size: 18px;
+	line-height: 49px;
+	height: 49px;
+	padding: 0px 6px;
+	display: inline-block;
+}
+
+.ui-navbar .ui-button:hover {
+	color: #1B90C5;
+}
+
+.ui-navbar .ui-button span {
+	vertical-align: middle;
+}
+
+.ui-navbar .ui-return .ui-icon {
+	margin-right: -12px;
+	margin-left: -16px;
+	font-size: 26px;
+}
+
+
+
+.ui-popover {
+	position: absolute;
+	box-shadow: 0 1px 8px rgba(0,0,0,.12);
+	border: solid 1px #e5e5e5;
+	margin: 0px;
+    background-color: #fff;
+    list-style: none;
+    padding: 0px;
+    z-index: 200;
+    display: none;
+}
+
+.ui-popover::before, .ui-popover::after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+    top: -7px;
+    background: none;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.ui-popover::before {
+    top: -8px;
+    border-bottom-color: #e5e5e5;
+    z-index: 10;
+}
+
+.ui-popover::after {
+    z-index: 11;
+}
+
+.ui-popover-rb {
+	right: 0px;
+}
+
+.ui-popover-rb::before, .ui-popover-rb::after {
+	left: auto;
+	right: 12px;
+	margin-left: 0px;
+}
+
+.ui-popover-lb {
+	left: 0px;
+}
+
+.ui-popover-lb::before, .ui-popover-lb::after {
+	left: 12px;
+	margin-left: 0px;
+}
+
+
+
+
+table.ui-table {
+	table-layout: fixed;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+

@@ -1,0 +1,6 @@
+
+table.ui-table {
+	table-layout: fixed;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
