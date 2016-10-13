@@ -37,7 +37,7 @@ func parse(in string, out *os.File, home string, r *regexp.Regexp) {
 		return
 	}
 
-	for text != "" {
+	for text != nil && text != "" {
 
 		var idx = r.FindStringSubmatchIndex(text)
 

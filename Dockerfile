@@ -10,4 +10,3 @@ COPY ./static/kk /static/kk
 COPY ./static/ui /static/ui
 COPY ./static/lib /static/lib
 COPY ./@app/ui /@app/ui
-
