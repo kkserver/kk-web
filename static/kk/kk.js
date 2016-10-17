@@ -547,7 +547,7 @@ kk = {};
 		for(var i=1;i < arguments.length;i++) {
 
 			if(value == arguments[i]) {
-				this.style.display = undefined;
+				this.style.display = 'inherit';
 				return;
 			}
 		}
@@ -566,7 +566,8 @@ kk = {};
 			}
 		}
 
-		this.style.display = undefined;
+
+		this.style.display = 'inherit';
 		
 	};
 
