@@ -39,7 +39,7 @@
 	font-size: 20px;
 }
 
-.ui-navbar .ui-button {
+.ui-navbar .ui-a {
 	color: #28afec;
 	font-size: 18px;
 	line-height: 49px;
@@ -48,11 +48,11 @@
 	display: inline-block;
 }
 
-.ui-navbar .ui-button:hover {
+.ui-navbar .ui-a:hover {
 	color: #1B90C5;
 }
 
-.ui-navbar .ui-button span {
+.ui-navbar .ui-a span {
 	vertical-align: middle;
 }
 

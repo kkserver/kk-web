@@ -9,7 +9,12 @@
 
 	kk.Page.prototype.init = function() {
 		this.routes = [];
+		this.changes = [];
 		return this;
+	};
+
+	kk.Page.prototype.onchange = function(pattern,fn) {
+		this.changes.push({ pattern : pattern, fn : fn });
 	};
 
 	kk.Page.prototype.on = function(pattern,fn) {
@@ -55,11 +60,20 @@
 			});
 		});
 
+		for( var i in page.changes ) {
+			var v = page.changes[i];
+			if(v.pattern === undefined 
+				|| (v.pattern instanceof RegExp && v.pattern.test(page.path)) 
+				|| (typeof v.pattern == "string" && page.path.startsWith(v.pattern))) {
+				v.fn.apply(page)
+			}
+		}
+
 		for( var i in page.routes ) {
 			var v = page.routes[i];
 			if(v.pattern === undefined 
 				|| (v.pattern instanceof RegExp && v.pattern.test(page.path)) 
-				|| (v instanceof String && page.path.startsWith(v))) {
+				|| (typeof v.pattern == "string" && page.path.startsWith(v.pattern))) {
 				v.fn.apply(page)
 				break
 			}

@@ -301,21 +301,28 @@ kk = {};
 			}
 			else {
 
-				key = this.element.getAttribute("kk-key");
+				var i = 0;
+				
+				while(i < this.element.attributes.length) {
+					var attr = this.element.attributes[i];
+					if(attr.nodeName == "kk-key") {
 
-				if(typeof key == 'string') {
-
-					var v = elementValue(this.element,object,key);
+						var v = elementValue(this.element,object,(attr.nodeValue || attr.value));
 					
-					if(v !== undefined) {
-						if(this.element.value === undefined){
-							this.element.textContent = stringValue(v);
-						}
-						else {
-							this.element.value = stringValue(v);
+						if(v !== undefined) {
+							if(this.element.value === undefined){
+								this.element.textContent = stringValue(v);
+							}
+							else {
+								this.element.value = stringValue(v);
+							}
 						}
 					}
-
+					else if(attr.nodeName.startsWith("kk-attr-")) {
+						var v = elementValue(this.element,object,(attr.nodeValue || attr.value));
+						this.element.setAttribute(attr.nodeName.substr(8),stringValue(v));
+					}
+					i ++;
 				}
 
 			}
@@ -453,10 +460,18 @@ kk = {};
 			}
 			else {
 				
-				key = element.getAttribute("kk-key");
+				var bind;
+				var i = 0;
 				
-				if(typeof key == 'string') {
-					this.bind(key.split(",")[0],(new Bind()).init(element));
+				while(i < element.attributes.length) {
+					var attr = element.attributes[i];
+					if(attr.nodeName == "kk-key" || attr.nodeName.startsWith("kk-attr-")) {
+						if(bind === undefined) {
+							bind = (new Bind()).init(element);
+						}
+						this.bind((attr.nodeValue || attr.value).split(",")[0],bind);
+					}
+					i ++;
 				}
 
 				var p = element.firstChild;
@@ -569,6 +584,10 @@ kk = {};
 
 		this.style.display = 'inherit';
 		
+	};
+
+	kk.view.attr = function(value,name)  {
+		this.setAttribute(name,value);
 	};
 
 })(kk);
