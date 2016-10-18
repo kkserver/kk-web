@@ -25,6 +25,9 @@ buildProject() {
 	#static compressor
 
 	./compressor.sh
+	if [ $? -ne 0 ]; then
+		exitCommand
+	fi 
 
 	cp -f Dockerfile .Dockerfile
 
@@ -34,6 +37,10 @@ buildProject() {
 	git tag $TAG
 	git push origin $TAG
 	../compressor.sh
+	if [ $? -ne 0 ]; then
+		cd ..
+		exitCommand
+	fi 
 	cat AppDockerfile >> ../Dockerfile
 	cd ..
 

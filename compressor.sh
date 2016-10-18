@@ -87,6 +87,11 @@ if [ -d "./@app" ]; then
 		
 		go run $HOME/compressor.go -home "$HOME/@app" -o "${map%.view.html}.html" -i "$map"
 		
+		if [ $? -ne 0 ]; then
+			echo -e "go run $HOME/compressor.go -home \"$HOME/@app\" -o \"${map%.view.html}.html\" -i \"$map\""
+			exit 3
+		fi
+
 		echo "compressor $map to ${map%.view.html}.html"
 		
 	done
