@@ -311,7 +311,7 @@ kk = {};
 					
 						if(v !== undefined) {
 							if(this.element.value === undefined){
-								this.element.textContent = stringValue(v);
+								this.element.innerHTML = stringValue(v);
 							}
 							else {
 								this.element.value = stringValue(v);
@@ -465,7 +465,7 @@ kk = {};
 				
 				while(i < element.attributes.length) {
 					var attr = element.attributes[i];
-					if(attr.nodeName == "kk-key" || attr.nodeName.startsWith("kk-attr-")) {
+					if(attr.nodeName == "kk-key" attr.nodeName.startsWith("kk-attr-")) {
 						if(bind === undefined) {
 							bind = (new Bind()).init(element);
 						}
