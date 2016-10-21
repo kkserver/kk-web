@@ -6,7 +6,9 @@ RUN echo "Asia/shanghai" >> /etc/timezone
 
 ENV NGINX_VERSION 1.10.1-r1
 
-RUN apk add --update nginx-lua=$NGINX_VERSION bash && \
+RUN apk add --update --repository http://mirrors.aliyun.com/alpine/v3.4/main/ \
+	 --repository http://mirrors.aliyun.com/alpine/v3.4/community/ \
+	 nginx-lua=$NGINX_VERSION bash && \
     rm -rf /var/cache/apk/* 
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
