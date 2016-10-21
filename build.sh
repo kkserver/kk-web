@@ -1,14 +1,11 @@
 #/bin/sh
 
 TAG=`date +%Y%m%d%H%M%S`
-PWD=`pwd`
+WORKDIR=`pwd`
 
 
 exitCommand() {
-	cp -f .Dockerfile Dockerfile
-	rm -f .Dockerfile
-	rm -rf kk-job-web
-	exit
+	exit $1
 }
 
 runCommand() {
@@ -16,7 +13,7 @@ runCommand() {
 	$CMD
 	if [ $? -ne 0 ]; then
 		echo -e "[FAIL] $CMD"
-		exitCommand
+		exitCommand 3
 	fi 
 }
 
@@ -24,25 +21,18 @@ buildProject() {
 
 	#static compressor
 
-	./compressor.sh
-	if [ $? -ne 0 ]; then
-		exitCommand
-	fi 
+	if [ -d "$HOME/.kk-shell" ]; then
+		cd "$HOME/.kk-shell"
+		git pull origin master
+		cd $WORKDIR
+	else
+		git clone http://github.com/kkserver/kk-shell $HOME/.kk-shell
+		chmod +x $HOME/.kk-shell/web/build.sh
+		chmod +x $HOME/.kk-shell/web/view.py
+	fi
 
-	cp -f Dockerfile .Dockerfile
-
-	#kk-job
-	git clone https://github.com/kkserver/kk-job-web.git
-	cd kk-job-web
-	git tag $TAG
-	git push origin $TAG
-	../compressor.sh
-	if [ $? -ne 0 ]; then
-		cd ..
-		exitCommand
-	fi 
-	cat AppDockerfile >> ../Dockerfile
-	cd ..
+	CMD="$HOME/.kk-shell/web/build.sh"
+	runCommand
 
 	#docker
 	CMD="docker build -t $PROJECT:$TAG ."
@@ -59,7 +49,7 @@ buildProject() {
 
 }
 
-echo $PWD
+echo $WORKDIR
 
 #go
 
