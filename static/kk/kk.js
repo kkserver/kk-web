@@ -465,7 +465,7 @@ kk = {};
 				
 				while(i < element.attributes.length) {
 					var attr = element.attributes[i];
-					if(attr.nodeName == "kk-key" attr.nodeName.startsWith("kk-attr-")) {
+					if(attr.nodeName == "kk-key" || attr.nodeName.startsWith("kk-attr-")) {
 						if(bind === undefined) {
 							bind = (new Bind()).init(element);
 						}
